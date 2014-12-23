@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A8C18F08-8051-454A-9680-E682DE48C64C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>testTableView</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6ABA9EBD023537FC2022251F6D52590396ECF3CC</key>
+		<string>https://github.com/chensiding/SDTableViewController.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>testTableView.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6ABA9EBD023537FC2022251F6D52590396ECF3CC</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chensiding/SDTableViewController.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6ABA9EBD023537FC2022251F6D52590396ECF3CC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6ABA9EBD023537FC2022251F6D52590396ECF3CC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDTableViewController</string>
+		</dict>
+	</array>
+</dict>
+</plist>

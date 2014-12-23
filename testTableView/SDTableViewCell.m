@@ -13,7 +13,11 @@
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) int originalZPosition;
 @property (nonatomic) bool isOriginalStateSet;
-@property (nonatomic) bool isAnimating;
+@property (strong, nonatomic) NSMutableArray *activeGestureList;
+
+@property (nonatomic) CGFloat scaleByPinch;
+@property (nonatomic) CGFloat rotationByPan;
+@property (nonatomic) CGFloat rotationByRotate;
 
 @end
 
@@ -35,12 +39,18 @@
 
 -(void)commonInit{
     self.isOriginalStateSet = NO;
+    self.activeGestureList = [[NSMutableArray alloc]init];
     
     self.backgroundColor = [UIColor clearColor];
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(20, 20, 300, 300)];
     
     view.backgroundColor = [UIColor colorWithRed:(float)rand() / RAND_MAX green:(float)rand() / RAND_MAX blue:(float)rand() / RAND_MAX alpha:1];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 300, 300)];
+    label.text = @"A";
+    
+    [view addSubview:label];
     
     UIPinchGestureRecognizer *pinch=[[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handleGesture:)];
     pinch.delegate = self;
@@ -66,111 +76,53 @@
         {
             [self saveOriginalState];
             self.layer.zPosition = 999;
+            [self.activeGestureList addObject:recognizer];
+            
+            if([recognizer isKindOfClass:[UIPanGestureRecognizer class]]){
+                self.rotationByPan = 0;
+            }
+            else if([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]){
+                self.rotationByRotate = 0;
+            }
+            else if([recognizer isKindOfClass:[UIPinchGestureRecognizer class]]){
+                self.scaleByPinch = 1;
+            }
         }
         case UIGestureRecognizerStateChanged:
         {
             if([recognizer isKindOfClass:[UIPinchGestureRecognizer class]]){
                 CGFloat scale = ((UIPinchGestureRecognizer *)recognizer).scale;
-                
-                self.transform = CGAffineTransformScale(recognizer.view.transform, scale, scale);
-                
-                ((UIPinchGestureRecognizer *)recognizer).scale = 1;
+                self.scaleByPinch = scale;
             }
             else if([recognizer isKindOfClass:[UIPanGestureRecognizer class]]){
                 CGPoint translation = [((UIPanGestureRecognizer *)recognizer) translationInView:self.superview];
+                
+                self.rotationByPan = M_PI / 360 * 30 * translation.x / 160;;
                 
                 self.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2 +translation.x, self.originalFrame.origin.y+ self.originalFrame.size.height / 2 + translation.y);
             }
             else if([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]){
                 CGFloat rotation = ((UIRotationGestureRecognizer*)recognizer).rotation;
                 
-                recognizer.view.transform = CGAffineTransformRotate(recognizer.view.transform, rotation);
-                
-                ((UIRotationGestureRecognizer*)recognizer).rotation = 0;
+                self.rotationByRotate = rotation;
             }
             
-            break;
-        }
-        default:
-        {
-            [self restoreOriginalState];
-            break;
-        }
-    }
-
-}
-
--(void)handlePinch:(UIPinchGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            [self saveOriginalState];
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-            CGFloat scale = recognizer.scale;
-            
-            self.transform = CGAffineTransformScale(recognizer.view.transform, scale, scale);
-            
-            recognizer.scale = 1;
+            NSLog(@"rotaion by pan: %f, rotation by rotate: %f", self.rotationByPan, self.rotationByRotate);
+            recognizer.view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, self.rotationByRotate + self.rotationByPan);
+            recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, self.scaleByPinch, self.scaleByPinch);
             
             break;
         }
         default:
         {
-            [self restoreOriginalState];
+            [self.activeGestureList removeObject:recognizer];
+            if([self.activeGestureList count] == 0){
+                [self restoreOriginalState];
+            }
             break;
         }
     }
-}
 
--(void)handleRotation:(UIRotationGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            [self saveOriginalState];
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-            CGFloat rotation = recognizer.rotation;
-            
-            recognizer.view.transform = CGAffineTransformRotate(recognizer.view.transform, rotation);
-            
-            recognizer.rotation = 0;
-            
-            break;
-        }
-        default:
-        {
-            [self restoreOriginalState];
-            break;
-        }
-    }
-}
-
--(void)handlePan:(UIPanGestureRecognizer *)recognizer
-{
-    switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            [self saveOriginalState];
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-            CGPoint translation = [recognizer translationInView:self.superview];
-            
-            self.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2 +translation.x, self.originalFrame.origin.y+ self.originalFrame.size.height / 2 + translation.y);
-            
-            break;
-        }
-        default:
-        {
-            [self restoreOriginalState];
-            break;
-        }
-    }
 }
 
 -(void)saveOriginalState
@@ -184,18 +136,19 @@
 
 -(void)restoreOriginalState
 {
-    if(!self.isAnimating){
-        self.isAnimating = YES;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.frame = self.originalFrame;
-            self.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-            if(finished){
-                self.isAnimating=NO;
-                self.layer.zPosition = self.originalZPosition;
-            }
-        }];
-    }
+    NSLog(@"Animation Start");
+    [UIView animateWithDuration:0.3 animations:^{
+        self.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2, self.originalFrame.origin.y + self.originalFrame.size.height / 2);
+        self.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        if(finished){
+            NSLog(@"Animation Finished");
+            self.layer.zPosition = self.originalZPosition;
+            self.rotationByRotate = 0;
+            self.rotationByPan = 0;
+            self.scaleByPinch = 1;
+        }
+    }];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
