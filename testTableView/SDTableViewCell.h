@@ -10,6 +10,8 @@
 
 @interface SDTableViewCell : UITableViewCell
 
+-(void)inTableView:(UITableView *)tableView didChangeFrameInSuperView:(UIView *)superView;
+
 +(SDTableViewCell *)create;
 
 @end

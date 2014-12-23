@@ -40,14 +40,17 @@
 -(void)commonInit{
     self.isOriginalStateSet = NO;
     self.activeGestureList = [[NSMutableArray alloc]init];
+    self.scaleByPinch = 1;
+    self.rotationByRotate = 0;
+    self.rotationByPan = 0;
     
     self.backgroundColor = [UIColor clearColor];
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(20, 20, 300, 300)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(20, 20, 335, 335)];
     
     view.backgroundColor = [UIColor colorWithRed:(float)rand() / RAND_MAX green:(float)rand() / RAND_MAX blue:(float)rand() / RAND_MAX alpha:1];
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 300, 300)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 335, 335)];
     label.text = @"A";
     
     [view addSubview:label];
@@ -77,16 +80,6 @@
             [self saveOriginalState];
             self.layer.zPosition = 999;
             [self.activeGestureList addObject:recognizer];
-            
-            if([recognizer isKindOfClass:[UIPanGestureRecognizer class]]){
-                self.rotationByPan = 0;
-            }
-            else if([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]){
-                self.rotationByRotate = 0;
-            }
-            else if([recognizer isKindOfClass:[UIPinchGestureRecognizer class]]){
-                self.scaleByPinch = 1;
-            }
         }
         case UIGestureRecognizerStateChanged:
         {
@@ -158,6 +151,22 @@
     }
     
     return YES;
+}
+
+-(void)inTableView:(UITableView *)tableView didChangeFrameInSuperView:(UIView *)superView
+{
+    CGRect frameInSuperView = [tableView convertRect:self.frame toView:superView];
+    NSLog(@"Frame in super view x=%f, y=%f", frameInSuperView.origin.x, frameInSuperView.origin.y);
+    CGFloat scale = 1;
+    CGFloat delaScale = 0.15;
+    if(CGRectGetMinY(frameInSuperView) < 0){
+        scale = 1 - delaScale * -CGRectGetMinY(frameInSuperView)/CGRectGetHeight(frameInSuperView);
+    }
+    else if(CGRectGetMaxY(frameInSuperView) > CGRectGetHeight(superView.frame)){
+        scale = 1 - delaScale * (- CGRectGetHeight(superView.frame) + CGRectGetMaxY(frameInSuperView))/CGRectGetHeight(frameInSuperView);
+    }
+    
+    self.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
 }
 
 +(SDTableViewCell *)create

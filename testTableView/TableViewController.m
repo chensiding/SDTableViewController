@@ -9,7 +9,10 @@
 #import "TableViewController.h"
 #import "SDTableViewCell.h"
 
-@interface TableViewController ()
+@interface TableViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic) CATransform3D tableCellTransformation;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -17,6 +20,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -25,6 +31,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    CATransform3D transform = CATransform3DIdentity;
+    transform = CATransform3DRotate(transform, 0, 0, 0, 0.8);
+    transform = CATransform3DScale(transform, 0.6, 0.6, 0.6);
+    transform = CATransform3DTranslate(transform, 0, 0, -20);
+    _tableCellTransformation = transform;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,7 +66,26 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 320;
+    return 335;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /*cell.layer.transform = self.tableCellTransformation;
+    cell.layer.opacity = 0.8;
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        cell.layer.transform = CATransform3DIdentity;
+        cell.layer.opacity = 1;
+    }];*/
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSArray *visibleCells = [self.tableView visibleCells];
+    for (SDTableViewCell *cell in visibleCells) {
+        [cell inTableView:self.tableView didChangeFrameInSuperView:self.view];
+    }
 }
 
 /*
