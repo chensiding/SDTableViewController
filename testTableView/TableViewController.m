@@ -8,6 +8,7 @@
 
 #import "TableViewController.h"
 #import "SDTableViewCell.h"
+#import "ArticleViewController.h"
 
 @interface TableViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -86,6 +87,23 @@
     for (SDTableViewCell *cell in visibleCells) {
         [cell inTableView:self.tableView didChangeFrameInSuperView:self.view];
     }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"selected");
+    ArticleViewController *articleViewController = [ArticleViewController create];
+    
+    //if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+    articleViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self setProvidesPresentationContextTransitionStyle:YES];
+    [self setDefinesPresentationContext:YES];
+    //}
+    //else{
+    //    [[self parentTableViewController]setModalPresentationStyle:UIModalPresentationCurrentContext];
+    //}
+    
+    [self presentViewController:articleViewController animated:YES completion:nil];
 }
 
 /*

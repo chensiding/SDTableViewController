@@ -18,6 +18,7 @@
 		DB663B261A442DA8001AEB67 /* UIPinchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB663B241A442DA8001AEB67 /* UIPinchTableViewCell.xib */; };
 		DB663B291A442F4A001AEB67 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B281A442F4A001AEB67 /* TableViewController.m */; };
 		DB663B2C1A4804AD001AEB67 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */; };
+		DB663B2F1A498184001AEB67 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2E1A498184001AEB67 /* ArticleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		DB663B281A442F4A001AEB67 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		DB663B2A1A4804AD001AEB67 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		DB663B2D1A498184001AEB67 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		DB663B2E1A498184001AEB67 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 		DB663AFB1A442D35001AEB67 /* testTableView */ = {
 			isa = PBXGroup;
 			children = (
+				DB663B2D1A498184001AEB67 /* ArticleViewController.h */,
+				DB663B2E1A498184001AEB67 /* ArticleViewController.m */,
 				DB663B001A442D35001AEB67 /* AppDelegate.h */,
 				DB663B011A442D35001AEB67 /* AppDelegate.m */,
 				DB663B031A442D35001AEB67 /* ViewController.h */,
@@ -241,6 +246,7 @@
 				DB663B051A442D35001AEB67 /* ViewController.m in Sources */,
 				DB663B251A442DA8001AEB67 /* SDTableViewCell.m in Sources */,
 				DB663B2C1A4804AD001AEB67 /* CollectionViewController.m in Sources */,
+				DB663B2F1A498184001AEB67 /* ArticleViewController.m in Sources */,
 				DB663B021A442D35001AEB67 /* AppDelegate.m in Sources */,
 				DB663B291A442F4A001AEB67 /* TableViewController.m in Sources */,
 				DB663AFF1A442D35001AEB67 /* main.m in Sources */,
