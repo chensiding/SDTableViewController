@@ -9,11 +9,14 @@
 #import "TableViewController.h"
 #import "SDTableViewCell.h"
 #import "ArticleViewController.h"
+#import "SDModalTransitionManager.h"
 
 @interface TableViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) CATransform3D tableCellTransformation;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) SDModalTransitionManager *modalTransitionManager;
 
 @end
 
@@ -24,6 +27,8 @@
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    self.modalTransitionManager = [[SDModalTransitionManager alloc]init];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -93,17 +98,35 @@
 {
     NSLog(@"selected");
     ArticleViewController *articleViewController = [ArticleViewController create];
+    articleViewController.transitioningDelegate = self;
+    articleViewController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
     
     //if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
-    articleViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self setProvidesPresentationContextTransitionStyle:YES];
-    [self setDefinesPresentationContext:YES];
+    //articleViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    //[self setProvidesPresentationContextTransitionStyle:YES];
+    //[self setDefinesPresentationContext:YES];
     //}
     //else{
     //    [[self parentTableViewController]setModalPresentationStyle:UIModalPresentationCurrentContext];
     //}
     
     [self presentViewController:articleViewController animated:YES completion:nil];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    self.modalTransitionManager.modalTransitionType = SDModalTransitionDismiss;
+    return self.modalTransitionManager;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    self.modalTransitionManager.modalTransitionType = SDModalTransitionPresent;
+    return self.modalTransitionManager;
 }
 
 /*

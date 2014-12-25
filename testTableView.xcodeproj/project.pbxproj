@@ -19,6 +19,7 @@
 		DB663B291A442F4A001AEB67 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B281A442F4A001AEB67 /* TableViewController.m */; };
 		DB663B2C1A4804AD001AEB67 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */; };
 		DB663B2F1A498184001AEB67 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2E1A498184001AEB67 /* ArticleViewController.m */; };
+		DB663B381A4A9C10001AEB67 /* SDModalTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		DB663B2D1A498184001AEB67 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		DB663B2E1A498184001AEB67 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		DB663B361A4A9C10001AEB67 /* SDModalTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDModalTransitionManager.h; sourceTree = "<group>"; };
+		DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDModalTransitionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				DB663B281A442F4A001AEB67 /* TableViewController.m */,
 				DB663B2A1A4804AD001AEB67 /* CollectionViewController.h */,
 				DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */,
+				DB663B361A4A9C10001AEB67 /* SDModalTransitionManager.h */,
+				DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */,
 			);
 			path = testTableView;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				DB663B021A442D35001AEB67 /* AppDelegate.m in Sources */,
 				DB663B291A442F4A001AEB67 /* TableViewController.m in Sources */,
 				DB663AFF1A442D35001AEB67 /* main.m in Sources */,
+				DB663B381A4A9C10001AEB67 /* SDModalTransitionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +384,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = testTableView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -391,6 +398,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = testTableView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

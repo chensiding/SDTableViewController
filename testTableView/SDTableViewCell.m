@@ -54,6 +54,8 @@
     label.text = @"A";
     
     [view addSubview:label];
+    self.mainView = view;
+    [self addSubview:self.mainView];
     
     UIPinchGestureRecognizer *pinch=[[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handleGesture:)];
     pinch.delegate = self;
@@ -68,8 +70,6 @@
     [self addGestureRecognizer:pinch];
     [self addGestureRecognizer:pan];
     [self addGestureRecognizer:rotation];
-    
-    [self addSubview:view];
 }
 
 -(void)handleGesture:(UIGestureRecognizer *)recognizer

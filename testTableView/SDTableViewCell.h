@@ -12,6 +12,8 @@
 
 -(void)inTableView:(UITableView *)tableView didChangeFrameInSuperView:(UIView *)superView;
 
+@property (strong, nonatomic) UIView *mainView;
+
 +(SDTableViewCell *)create;
 
 @end

@@ -25,10 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
-    view.backgroundColor = [UIColor redColor];
     
-    [self.view addSubview: view];
+    self.view.backgroundColor = [UIColor redColor];
     
     UIPinchGestureRecognizer *pinch=[[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handleGesture:)];
     pinch.delegate = self;
@@ -43,8 +41,15 @@
     [self.view addGestureRecognizer:pinch];
     [self.view addGestureRecognizer:pan];
     [self.view addGestureRecognizer:rotation];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:tap];
 }
 
+-(void)handleTap:(UITapGestureRecognizer *)recognizer
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 -(void)handleGesture:(UIGestureRecognizer *)recognizer
 {
@@ -84,7 +89,12 @@
         {
             [self.activeGestureList removeObject:recognizer];
             if([self.activeGestureList count] == 0){
-                [self restoreOriginalState];
+                if(self.scaleByPinch < 1){
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
+                else{
+                    [self restoreOriginalState];
+                }
             }
             break;
         }
