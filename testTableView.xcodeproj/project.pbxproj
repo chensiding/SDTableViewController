@@ -20,6 +20,8 @@
 		DB663B2C1A4804AD001AEB67 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */; };
 		DB663B2F1A498184001AEB67 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B2E1A498184001AEB67 /* ArticleViewController.m */; };
 		DB663B381A4A9C10001AEB67 /* SDModalTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */; };
+		DB663B3B1A4BC747001AEB67 /* UITableViewCell+TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B3A1A4BC747001AEB67 /* UITableViewCell+TableViewController.m */; };
+		DB663B3E1A4BC7F8001AEB67 /* SDModalTransitionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DB663B3D1A4BC7F8001AEB67 /* SDModalTransitionInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,10 @@
 		DB663B2E1A498184001AEB67 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		DB663B361A4A9C10001AEB67 /* SDModalTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDModalTransitionManager.h; sourceTree = "<group>"; };
 		DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDModalTransitionManager.m; sourceTree = "<group>"; };
+		DB663B391A4BC747001AEB67 /* UITableViewCell+TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+TableViewController.h"; path = "../../../Enlistment/sidchen/mews/mews/presentation/shared/UITableViewCell+TableViewController.h"; sourceTree = "<group>"; };
+		DB663B3A1A4BC747001AEB67 /* UITableViewCell+TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+TableViewController.m"; path = "../../../Enlistment/sidchen/mews/mews/presentation/shared/UITableViewCell+TableViewController.m"; sourceTree = "<group>"; };
+		DB663B3C1A4BC7F8001AEB67 /* SDModalTransitionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDModalTransitionInfo.h; sourceTree = "<group>"; };
+		DB663B3D1A4BC7F8001AEB67 /* SDModalTransitionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDModalTransitionInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +104,8 @@
 		DB663AFB1A442D35001AEB67 /* testTableView */ = {
 			isa = PBXGroup;
 			children = (
-				DB663B2D1A498184001AEB67 /* ArticleViewController.h */,
-				DB663B2E1A498184001AEB67 /* ArticleViewController.m */,
+				DB663B391A4BC747001AEB67 /* UITableViewCell+TableViewController.h */,
+				DB663B3A1A4BC747001AEB67 /* UITableViewCell+TableViewController.m */,
 				DB663B001A442D35001AEB67 /* AppDelegate.h */,
 				DB663B011A442D35001AEB67 /* AppDelegate.m */,
 				DB663B031A442D35001AEB67 /* ViewController.h */,
@@ -117,6 +123,10 @@
 				DB663B2B1A4804AD001AEB67 /* CollectionViewController.m */,
 				DB663B361A4A9C10001AEB67 /* SDModalTransitionManager.h */,
 				DB663B371A4A9C10001AEB67 /* SDModalTransitionManager.m */,
+				DB663B3C1A4BC7F8001AEB67 /* SDModalTransitionInfo.h */,
+				DB663B3D1A4BC7F8001AEB67 /* SDModalTransitionInfo.m */,
+				DB663B2D1A498184001AEB67 /* ArticleViewController.h */,
+				DB663B2E1A498184001AEB67 /* ArticleViewController.m */,
 			);
 			path = testTableView;
 			sourceTree = "<group>";
@@ -251,11 +261,13 @@
 				DB663B051A442D35001AEB67 /* ViewController.m in Sources */,
 				DB663B251A442DA8001AEB67 /* SDTableViewCell.m in Sources */,
 				DB663B2C1A4804AD001AEB67 /* CollectionViewController.m in Sources */,
+				DB663B3E1A4BC7F8001AEB67 /* SDModalTransitionInfo.m in Sources */,
 				DB663B2F1A498184001AEB67 /* ArticleViewController.m in Sources */,
 				DB663B021A442D35001AEB67 /* AppDelegate.m in Sources */,
 				DB663B291A442F4A001AEB67 /* TableViewController.m in Sources */,
 				DB663AFF1A442D35001AEB67 /* main.m in Sources */,
 				DB663B381A4A9C10001AEB67 /* SDModalTransitionManager.m in Sources */,
+				DB663B3B1A4BC747001AEB67 /* UITableViewCell+TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

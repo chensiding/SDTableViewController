@@ -16,8 +16,6 @@
 @property (nonatomic) CATransform3D tableCellTransformation;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, strong) SDModalTransitionManager *modalTransitionManager;
-
 @end
 
 @implementation TableViewController
@@ -27,9 +25,6 @@
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    self.modalTransitionManager = [[SDModalTransitionManager alloc]init];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -93,84 +88,5 @@
         [cell inTableView:self.tableView didChangeFrameInSuperView:self.view];
     }
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"selected");
-    ArticleViewController *articleViewController = [ArticleViewController create];
-    articleViewController.transitioningDelegate = self;
-    articleViewController.modalPresentationStyle = UIModalPresentationCustom;
-    
-    self.selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    //if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
-    //articleViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    //[self setProvidesPresentationContextTransitionStyle:YES];
-    //[self setDefinesPresentationContext:YES];
-    //}
-    //else{
-    //    [[self parentTableViewController]setModalPresentationStyle:UIModalPresentationCurrentContext];
-    //}
-    
-    [self presentViewController:articleViewController animated:YES completion:nil];
-}
-
-#pragma mark - UIViewControllerTransitioningDelegate
-
--(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    self.modalTransitionManager.modalTransitionType = SDModalTransitionDismiss;
-    return self.modalTransitionManager;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-{
-    self.modalTransitionManager.modalTransitionType = SDModalTransitionPresent;
-    return self.modalTransitionManager;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

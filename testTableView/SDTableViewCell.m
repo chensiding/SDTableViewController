@@ -7,6 +7,10 @@
 //
 
 #import "SDTableViewCell.h"
+#import "UITableViewCell+TableViewController.h"
+#import "ArticleViewController.h"
+#import "SDModalTransitionInfo.h"
+#import "SDModalTransitionManager.h"
 
 @interface SDTableViewCell ()
 
@@ -70,6 +74,54 @@
     [self addGestureRecognizer:pinch];
     [self addGestureRecognizer:pan];
     [self addGestureRecognizer:rotation];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer:tap];
+}
+
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    SDModalTransitionManager *transitionManager = [[SDModalTransitionManager alloc]init];
+    transitionManager.modalTransitionType = SDModalTransitionDismiss;
+    return transitionManager;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    SDModalTransitionManager *transitionManager = [[SDModalTransitionManager alloc]init];
+    transitionManager.modalTransitionType = SDModalTransitionPresent;
+    return transitionManager;
+}
+
+-(void)handleTap:(UITapGestureRecognizer *)recognizer
+{
+    NSLog(@"tap");
+    [self presentDetailView];
+}
+
+-(void)presentDetailView
+{
+    ArticleViewController *articleViewController = [ArticleViewController create];
+    articleViewController.transitioningDelegate = self;
+    articleViewController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    SDModalTransitionInfo *transitionInfo = [[SDModalTransitionInfo alloc]init];
+    transitionInfo.sharedView = self.mainView;
+    transitionInfo.containerOfSharedView = self;
+    transitionInfo.sharedViewOriginalFrame = self.mainView.frame;
+    NSLog(@"Share View Frame: x=%f, y=%f, width=%f, height=%f", transitionInfo.sharedViewOriginalFrame.origin.x, transitionInfo.sharedViewOriginalFrame.origin.y, transitionInfo.sharedViewOriginalFrame.size.width, transitionInfo.sharedViewOriginalFrame.size.height);
+    
+    NSLog(@"Self Frame: x=%f, y=%f, width=%f, height=%f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+    
+    transitionInfo.scale  = self.scaleByPinch;
+    transitionInfo.rotate = self.rotationByPan + self.rotationByRotate;
+    
+    articleViewController.transitionInfo = transitionInfo;
+    
+    [[self parentTableViewController] presentViewController:articleViewController animated:YES completion:nil];
 }
 
 -(void)handleGesture:(UIGestureRecognizer *)recognizer
@@ -92,7 +144,7 @@
                 
                 self.rotationByPan = M_PI / 360 * 30 * translation.x / 160;;
                 
-                self.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2 +translation.x, self.originalFrame.origin.y+ self.originalFrame.size.height / 2 + translation.y);
+                self.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2 +translation.x, self.originalFrame.origin.y + self.originalFrame.size.height / 2 + translation.y);
             }
             else if([recognizer isKindOfClass:[UIRotationGestureRecognizer class]]){
                 CGFloat rotation = ((UIRotationGestureRecognizer*)recognizer).rotation;
@@ -110,6 +162,10 @@
         {
             [self.activeGestureList removeObject:recognizer];
             if([self.activeGestureList count] == 0){
+                if(self.scaleByPinch > 1){
+                    [self presentDetailView];
+                }
+                
                 [self restoreOriginalState];
             }
             break;
@@ -146,6 +202,13 @@
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     if(gestureRecognizer.view != otherGestureRecognizer.view){
+        return NO;
+    }
+    
+    if(![gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]] &&
+       ![gestureRecognizer isKindOfClass:[UIRotationGestureRecognizer class]] &&
+       ![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]])
+    {
         return NO;
     }
     

@@ -25,6 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.scaleByPinch = 1;
+    self.rotationByPan = 0;
+    self.rotationByRotate = 0;
     
     self.view.backgroundColor = [UIColor redColor];
     

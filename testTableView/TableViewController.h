@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableViewController : UIViewController <UIViewControllerTransitioningDelegate>
-
-@property (strong, nonatomic) UITableViewCell *selectedCell;
+@interface TableViewController : UIViewController
 
 @end

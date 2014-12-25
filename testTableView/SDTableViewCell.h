@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SDTableViewCell : UITableViewCell
+@interface SDTableViewCell : UITableViewCell<UIViewControllerTransitioningDelegate>
 
 -(void)inTableView:(UITableView *)tableView didChangeFrameInSuperView:(UIView *)superView;
 

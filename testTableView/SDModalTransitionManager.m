@@ -9,6 +9,8 @@
 #import "SDModalTransitionManager.h"
 #import "TableViewController.h"
 #import "SDTableViewCell.h"
+#import "SDModalTransitionInfo.h"
+#import "ArticleViewController.h"
 
 @implementation SDModalTransitionManager
 
@@ -20,27 +22,26 @@
 {
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    CGRect sourceRect = [transitionContext initialFrameForViewController:fromVC];
     UIView *container = [transitionContext containerView];
-   
-    
+
     if(self.modalTransitionType == SDModalTransitionPresent){
+        SDModalTransitionInfo *transitionInfo = ((ArticleViewController *)toVC).transitionInfo;
+        UIView *sharedView = transitionInfo.sharedView;
+        CGRect shareViewOriginalFrame = transitionInfo.sharedViewOriginalFrame;
         
-        SDTableViewCell *cell = (SDTableViewCell *)((TableViewController *)fromVC).selectedCell;
-        UIView *mainView = cell.mainView;
+        CGRect toVCInitialFrame = [transitionInfo.containerOfSharedView convertRect:sharedView.frame toView:fromVC.view];
+        CGRect toVCFinalFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        CGRect shareViewInitialFrame = CGRectMake(0, 0, toVCInitialFrame.size.width, toVCInitialFrame.size.height);
+        CGRect shareViewFinalFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, shareViewOriginalFrame.size.height / shareViewOriginalFrame.size.width * [UIScreen mainScreen].bounds.size.width);
+        
+        toVC.view.frame = toVCInitialFrame;
+        sharedView.frame = shareViewInitialFrame;
+        
+        [toVC.view addSubview:transitionInfo.sharedView];
+        toVC.view.transform = CGAffineTransformMakeRotation(transitionInfo.rotate);
+        toVC.view.transform = CGAffineTransformScale(toVC.view.transform, transitionInfo.scale, transitionInfo.scale);
         
         [container insertSubview:toVC.view aboveSubview:fromVC.view];
-        
-        CGRect toVCInitalFrame = [cell convertRect:mainView.frame toView:fromVC.view];
-        NSLog(@"toVCInitialFrame : x=%f, y=%f, width=%f, height=%f", toVCInitalFrame.origin.x, toVCInitalFrame.origin.y, toVCInitalFrame.size.width, toVCInitalFrame.size.height);
-        
-        toVC.view.frame = toVCInitalFrame;
-        mainView.frame = CGRectMake(0, 0, toVCInitalFrame.size.width, toVCInitalFrame.size.height);
-        [toVC.view addSubview:mainView];
-        
-        CGRect mainViewFinalFrame = CGRectMake(0, 0, 375, 375);
-        
-        CGRect toVCFinalFrame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         
         [UIView animateWithDuration:1.0
                               delay:0.0
@@ -49,23 +50,20 @@
                             options:UIViewAnimationOptionCurveEaseIn
          
                          animations:^{
+                             toVC.view.transform = CGAffineTransformIdentity;
                              toVC.view.frame = toVCFinalFrame;
-                             mainView.frame = mainViewFinalFrame;
-                             toVC.view.transform = CGAffineTransformMakeRotation(0);
+                             sharedView.frame = shareViewFinalFrame;
                          } completion:^(BOOL finished) {
                              [transitionContext completeTransition:YES];
                          }];
     }
     else{
+        SDModalTransitionInfo *transitionInfo = ((ArticleViewController *)fromVC).transitionInfo;
+        UIView *sharedView = transitionInfo.sharedView;
+        CGRect shareViewOriginalFrame = transitionInfo.sharedViewOriginalFrame;
         
-        SDTableViewCell *cell = (SDTableViewCell *)((TableViewController *)toVC).selectedCell;
-        UIView *mainView = cell.mainView;
-
-        CGRect fromVCFinalFrame = [cell convertRect:mainView.frame toView:toVC.view];
-        fromVCFinalFrame.size = CGSizeMake(335, 335);
-        fromVCFinalFrame.origin = CGPointMake(fromVCFinalFrame.origin.x+20, fromVCFinalFrame.origin.y+20);
-        
-        NSLog(@"fromVCFinalFrame: x=%f, y=%f, width=%f, height=%f", fromVCFinalFrame.origin.x, fromVCFinalFrame.origin.y, fromVCFinalFrame.size.width, fromVCFinalFrame.size.height);
+        CGRect fromVCFinalFrame = [transitionInfo.containerOfSharedView convertRect:shareViewOriginalFrame toView:toVC.view];
+        CGRect shareViewFinalFrame = CGRectMake(0, 0, shareViewOriginalFrame.size.width, shareViewOriginalFrame.size.height);
         
         [UIView animateWithDuration:1.0
                               delay:0.0
@@ -76,10 +74,10 @@
                          animations:^{
                              fromVC.view.transform = CGAffineTransformIdentity;
                              fromVC.view.frame = fromVCFinalFrame;
-                             mainView.frame = CGRectMake(0, 0, 335, 335);
+                             sharedView.frame = shareViewFinalFrame;
                          } completion:^(BOOL finished) {
-                             mainView.frame = CGRectMake(20, 20, 335, 335);
-                             [cell addSubview:mainView];
+                             sharedView.frame = shareViewOriginalFrame;
+                             [transitionInfo.containerOfSharedView addSubview:sharedView];
                              [transitionContext completeTransition:YES];
                          }];
     }

@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/SDTableViewCell.m"
-            timestampString = "441103984.330317"
+            timestampString = "441190559.297971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "-handleGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/SDTableViewCell.m"
-            timestampString = "441103984.330317"
+            timestampString = "441190559.297971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "-handleGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/SDTableViewCell.m"
-            timestampString = "441103984.330317"
+            timestampString = "441190559.297971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "-handleGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/TableViewController.m"
-            timestampString = "441098516.667369"
+            timestampString = "441188163.251394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/SDTableViewCell.m"
-            timestampString = "441103984.330317"
+            timestampString = "441190559.297971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
             landmarkName = "-inTableView:didChangeFrameInSuperView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -214,11 +214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "testTableView/ArticleViewController.m"
-            timestampString = "441167730.222738"
+            timestampString = "441172611.429619"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "-handleGesture:"
             landmarkType = "5">
          </BreakpointContent>
@@ -229,13 +229,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "testTableView/TableViewController.m"
-            timestampString = "441103373.58543"
+            filePath = "testTableView/SDModalTransitionManager.m"
+            timestampString = "441188176.284956"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-animationControllerForDismissedController:"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "-animateTransition:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDModalTransitionInfo.h"
 
 @interface ArticleViewController : UIViewController
+
+@property (strong,nonatomic) SDModalTransitionInfo *transitionInfo;
 
 +(ArticleViewController *)create;
 
